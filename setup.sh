@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# V2Ray Server-Side Setup: v0.0.1
+# V2Ray Server-Side Setup: v0.0
 # Define colors for user-friendly printing
 NORMAL='\e[97m'
 PROCESS='\e[93m'
