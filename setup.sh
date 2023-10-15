@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# V2Ray Server-Side Setup: v0.0.1
+# V2Ray Server-Side Setup: v0.0.2
 # Define colors for user-friendly printing
 NORMAL='\e[97m'
 PROCESS='\e[93m'
@@ -52,12 +52,8 @@ print_message $DONE "Certificate and RSA Private Key Pair generated."
 
 # Convert certificates and private key to JSON format
 cert_json="{
-  \"certificate\": [
-    $(sed -e 's/^/"/' -e 's/$/",/' ca.crt)
-  ],
-  \"key\": [
-    $(sed -e 's/^/"/' -e 's/$/",/' ca.key)
-  ]
+  \"certificate\": [\"$(cat ca.crt | sed -e ':a' -e 'N' -e '$!ba' -e 's/\n/\\n/g')\"],
+  \"key\": [\"$(cat ca.key | sed -e ':a' -e 'N' -e '$!ba' -e 's/\n/\\n/g')\"]
 }"
 
 # Ask for user setup preference
@@ -68,7 +64,7 @@ read -r setup_choice
 if [ "$setup_choice" = "yes" ]; then
   uuid=$(generate_uuid)
   config_json="{
-  \"log": {
+  \"log\": {
     \"loglevel\": \"warning\"
   },
   \"inbounds\": [
@@ -168,7 +164,7 @@ systemctl enable v2ray
 print_message $DONE "V2Ray service enabled."
 
 print_message $PROCESS "Starting V2Ray service..."
-service v2ray start
+systemctl start v2ray
 print_message $DONE "V2Ray service started."
 
 # Sleep for 5 seconds
@@ -176,7 +172,7 @@ sleep 5
 
 # Check V2Ray service status
 print_message $PROCESS "Checking V2Ray service status..."
-service v2ray status
+systemctl status v2ray
 print_message $DONE "V2Ray service status checked."
 
 # Print server details
