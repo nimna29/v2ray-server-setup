@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# V2Ray Server-Side Setup: v0.0.0
+# V2Ray Server-Side Setup: v0.0.1
 # Define colors for user-friendly printing
 NORMAL='\e[97m'
 PROCESS='\e[93m'
@@ -53,10 +53,10 @@ print_message $DONE "Certificate and RSA Private Key Pair generated."
 # Convert certificates and private key to JSON format
 cert_json="{
   \"certificate\": [
-    \"$(cat ca.crt | sed -e 's/^/"/' -e 's/$/",/')\"
+    $(sed -e 's/^/"/' -e 's/$/",/' ca.crt)
   ],
   \"key\": [
-    \"$(cat ca.key | sed -e 's/^/"/' -e 's/$/",/')\"
+    $(sed -e 's/^/"/' -e 's/$/",/' ca.key)
   ]
 }"
 
@@ -68,7 +68,7 @@ read -r setup_choice
 if [ "$setup_choice" = "yes" ]; then
   uuid=$(generate_uuid)
   config_json="{
-  \"log\": {
+  \"log": {
     \"loglevel\": \"warning\"
   },
   \"inbounds\": [
@@ -119,7 +119,7 @@ else
 
   # Construct custom JSON configuration
   config_json="{
-  \"log\": {
+  \"log": {
     \"loglevel\": \"warning\"
   },
   \"inbounds\": [
