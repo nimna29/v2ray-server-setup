@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# V2Ray Server-Side Setup: v0.0.0
+# V2Ray Server-Side Setup: v0.2.0
 # Define colors for user-friendly printing
 NORMAL='\e[97m'
 PROCESS='\e[93m'
@@ -51,23 +51,22 @@ openssl req -x509 -newkey rsa:4096 -keyout ca.key -out ca.crt -days 365 -nodes
 print_message $DONE "Certificate and RSA Private Key Pair generated."
 
 # Convert certificates and private key to JSON format
-cert_json="{
+cert_json="[
+{
   \"certificate\": [
-    \"$(cat ca.crt | sed -e 's/^/"/' -e 's/$/",/')\"
+$(sed 's/.*/"  &"/' ca.crt | tr -d '\n')
   ],
   \"key\": [
-    \"$(cat ca.key | sed -e 's/^/"/' -e 's/$/",/')\"
+$(sed 's/.*/"  &"/' ca.key | tr -d '\n')
   ]
-}"
+}
+]"
 
-# Ask for user setup preference
-print_message $PROCESS "Do you want to use the default setup? (yes/no)"
-read -r setup_choice
+# Generate a random UUID
+uuid=$(generate_uuid)
 
-# If default setup, generate UUID and use certificates
-if [ "$setup_choice" = "yes" ]; then
-  uuid=$(generate_uuid)
-  config_json="{
+# Configure V2Ray with default settings
+config_json="{
   \"log\": {
     \"loglevel\": \"warning\"
   },
@@ -107,60 +106,9 @@ if [ "$setup_choice" = "yes" ]; then
     }
   ]
 }"
-  echo "$config_json" > config.json
-  print_message $DONE "Default setup configured."
-else
-  # Ask the user for configuration values
-  print_message $PROCESS "Enter the necessary configuration values:"
-  read -p "Enter UUID: " uuid
-  read -p "Enter v2ray port: " v2ray_port
-  read -p "Enter transport protocol (e.g., ws): " transport_protocol
-  read -p "Enter security (e.g., tls): " security
 
-  # Construct custom JSON configuration
-  config_json="{
-  \"log\": {
-    \"loglevel\": \"warning\"
-  },
-  \"inbounds\": [
-    {
-      \"port\": $v2ray_port,
-      \"listen\": \"0.0.0.0\",
-      \"protocol\": \"vmess\",
-      \"settings\": {
-        \"clients\": [
-          {
-            \"id\": \"$uuid\"
-          }
-        ]
-      },
-      \"tag\": \"tag-vmess\",
-      \"streamSettings\": {
-        \"network\": \"$transport_protocol\",
-        \"security\": \"$security\",
-        \"tlsSettings\": {
-          \"serverName\": \"teams.microsoft.com\",
-          \"allowInsecure\": true,
-          \"alpn\": [
-            \"http/1.1\"
-          ],
-          \"certificates\": $cert_json,
-          \"disableSystemRoot\": true
-        }
-      }
-    }
-  ],
-  \"outbounds\": [
-    {
-      \"protocol\": \"freedom\",
-      \"settings\": {},
-      \"tag\": \"direct\"
-    }
-  ]
-}"
-  echo "$config_json" > config.json
-  print_message $DONE "Custom setup configured."
-fi
+# Save the configuration to config.json
+echo "$config_json" > config.json
 
 # Enable and start V2Ray service
 print_message $PROCESS "Enabling V2Ray service..."
@@ -182,12 +130,9 @@ print_message $DONE "V2Ray service status checked."
 # Print server details
 server_ip=$(hostname -I | awk '{print $1}')
 print_message $DONE "Server IP: $server_ip"
-
-if [ "$setup_choice" = "yes" ]; then
-  print_message $DONE "V2Ray Port: 43"
-  print_message $DONE "UUID: $uuid"
-  print_message $DONE "Transport Protocol: ws"
-  print_message $DONE "Security: tls"
-fi
+print_message $DONE "V2Ray Port: 43"
+print_message $DONE "UUID: $uuid"
+print_message $DONE "Transport Protocol: ws"
+print_message $DONE "Security: tls"
 
 print_message $DONE "Setup complete."
