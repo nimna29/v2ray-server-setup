@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# V2Ray Server-Side Setup: v0.3.1
+# V2Ray Server-Side Setup: v0.3.2
 # Define colors for user-friendly printing
 NORMAL='\e[97m'
 PROCESS='\e[93m'
@@ -61,10 +61,10 @@ print_message $DONE "Certificate and RSA Private Key Pair generated."
 cert_json="[
 {
   \"certificate\": [
-$(sed -e 's/^[[:space:]]*//' -e 's/.*/"  &",/' ca.crt | sed '$ s/,$//')
+$(awk 'NF {sub(/^\s+/, "", $0); print "    \"" $0 "\","}' ca.crt | sed '$ s/,$//')
   ],
   \"key\": [
-$(sed -e 's/^[[:space:]]*//' -e 's/.*/"  &",/' ca.key | sed '$ s/,$//')
+$(awk 'NF {sub(/^\s+/, "", $0); print "    \"" $0 "\","}' ca.key | sed '$ s/,$//')
   ]
 }
 ]"
