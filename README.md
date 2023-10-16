@@ -32,13 +32,15 @@ Before you begin, ensure you have the following:
 4. Follow the on-screen prompts to customize your V2Ray server settings.
 
 ### Configuration
+- [x] `v0.3.2` - In this version, the setup script automates the entire configuration process, providing you with a hassle-free setup. 
+- [x] It configures your V2Ray server with default settings, ensuring that it's ready to use right away.
 
-The setup script will guide you through the configuration process, allowing you to:
+   - If you need to customize your V2Ray server, you can do so by editing the `config.json` file located at `/usr/local/etc/v2ray/`.
 
-- Choose the listening port and protocol
-- Set up inbound and outbound proxies
-- Enable or disable various features like routing, logging, and more
-- **TBA**
+For users who prefer manual configuration, please note that the setup script no longer guides you through the process.
+Instead, you have full control over the configuration by directly editing the `config.json` file.
+- [ ] Future updates may include a manual configuration guide for those who prefer a more hands-on approach to setting up V2Ray.
+- [x] Please refer to the [V2Ray documentation](https://www.v2fly.org/en_US/v5/config/overview.html) for detailed configuration options when editing `config.json`.
 
 ### Usage
 
