@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# V2Ray Server-Side Setup: v0.3.0
+# V2Ray Server-Side Setup: v0.3.1
 # Define colors for user-friendly printing
 NORMAL='\e[97m'
 PROCESS='\e[93m'
@@ -57,14 +57,14 @@ print_message $PROCESS "Generating Certificate and RSA Private Key Pair..."
 openssl req -x509 -newkey rsa:4096 -keyout ca.key -out ca.crt -days 365 -nodes
 print_message $DONE "Certificate and RSA Private Key Pair generated."
 
-# Convert certificates and private key to JSON format
+# Remove leading spaces and convert certificates and private key to JSON format
 cert_json="[
 {
   \"certificate\": [
-$(sed 's/.*/"  &",/' ca.crt | sed '$ s/,$//')
+$(sed -e 's/^[[:space:]]*//' -e 's/.*/"  &",/' ca.crt | sed '$ s/,$//')
   ],
   \"key\": [
-$(sed 's/.*/"  &",/' ca.key | sed '$ s/,$//')
+$(sed -e 's/^[[:space:]]*//' -e 's/.*/"  &",/' ca.key | sed '$ s/,$//')
   ]
 }
 ]"
