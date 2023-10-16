@@ -32,10 +32,8 @@ Before you begin, ensure you have the following:
 4. Follow the on-screen prompts to customize your V2Ray server settings.
 
 ### Configuration
-- [x] `v0.3.2` - In this version, the setup script automates the entire configuration process, providing you with a hassle-free setup. 
-- [x] It configures your V2Ray server with default settings, ensuring that it's ready to use right away.
-
-   - If you need to customize your V2Ray server, you can do so by editing the `config.json` file located at `/usr/local/etc/v2ray/`.
+In this version `v0.3.2`, the setup script automates the entire configuration process, providing you with a hassle-free setup. 
+- [x] It configures your V2Ray server with default settings, ensuring that it's ready to use right away. If you need to customize your V2Ray server, you can do so by editing the `config.json` file located at `/usr/local/etc/v2ray/`.
 
 For users who prefer manual configuration, please note that the setup script no longer guides you through the process.
 Instead, you have full control over the configuration by directly editing the `config.json` file.
