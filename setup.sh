@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# V2Ray Server-Side Setup: v0.3.2
+# V2Ray Server-Side Setup: v0.3.3
 # Define colors for user-friendly printing
 NORMAL='\e[97m'
 PROCESS='\e[93m'
@@ -14,6 +14,29 @@ print_message() {
   local message="$2"
   echo -e "${color}${message}${RESET}"
 }
+
+# Function to generate UUID
+generate_uuid() {
+  uuidgen
+}
+
+# Function to print ASCII art
+print_ascii_art() {
+  echo "$(tput setaf 5)
+ _       __     __                          __                                                   
+| |     / /__  / /________  ____ ___  ___  / /                                                   
+| | /| / / _ \/ / ___/ __ \/ __ \`__ \/ _ \/ /                                                    
+| |/ |/ /  __/ / /__/ /_/ / / / / / /  __/_/                                                     
+|__/|__/\___/_/\___/\____/_/ /_/ /_/\___(_)
+
+█░█ ▀█ █▀█ ▄▀█ █▄█ ▄▄ █▀ █▀▀ █▀█ █░█ █▀▀ █▀█ ▄▄ █▀ █▀▀ ▀█▀ █░█ █▀█
+▀▄▀ █▄ █▀▄ █▀█ ░█░ ░░ ▄█ ██▄ █▀▄ ▀▄▀ ██▄ █▀▄ ░░ ▄█ ██▄ ░█░ █▄█ █▀▀ v0.3.3
+
+  $(tput sgr0)"
+}
+
+# Call the ASCII art function
+print_ascii_art
 
 # Function to generate UUID
 generate_uuid() {
