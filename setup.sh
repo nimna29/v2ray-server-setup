@@ -38,6 +38,9 @@ print_ascii_art() {
 # Call the ASCII art function
 print_ascii_art
 
+# Sleep for 5 seconds
+sleep 5
+
 # Function to generate UUID
 generate_uuid() {
   uuidgen
