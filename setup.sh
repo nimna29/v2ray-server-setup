@@ -157,7 +157,7 @@ sleep 5
 
 # Check V2Ray service status
 print_message $PROCESS "Checking V2Ray service status..."
-service v2ray status
+timeout 5s service v2ray status
 print_message $DONE "V2Ray service status checked."
 
 # Print server details
