@@ -31,6 +31,14 @@ Before you begin, ensure you have the following:
 
 4. Follow the on-screen prompts to customize your V2Ray server settings.
 
+
+### [Tutorial - Easily Set Up Your Own Private VPN with V2Ray | Step-by-Step Guide](https://youtu.be/4q3B_urNaiM)
+
+<a href="https://youtu.be/4q3B_urNaiM">
+  <img width="800" alt="image" src="https://github.com/nimna29/v2ray-server-setup/assets/77341013/1dd177c1-e748-458c-8ffb-a207eb65fe9f">
+</a>
+
+
 ### Configuration
 In this version `v0.3.3`, the setup script automates the entire configuration process, providing you with a hassle-free setup. 
 - [x] It configures your V2Ray server with default settings, ensuring that it's ready to use right away. If you need to customize your V2Ray server, you can do so by editing the `config.json` file located at `/usr/local/etc/v2ray/`.
